@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.eventmanagerapplication.databinding.FragmentHomeBinding
-import com.example.eventmanagerapplication.viewmodel.HomeViewModel
+import com.example.eventmanagerapplication.viewmodel.EventDetailViewModel
 
 class HomeFragment : Fragment() {
 
@@ -24,7 +24,7 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val homeViewModel =
-            ViewModelProvider(this).get(HomeViewModel::class.java)
+            ViewModelProvider(this).get(EventDetailViewModel::class.java)
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
