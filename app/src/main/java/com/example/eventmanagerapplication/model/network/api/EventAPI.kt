@@ -9,9 +9,14 @@ import retrofit2.http.Query
 interface EventAPI {
 
     @GET("public-api/v1.2/events")
-    suspend fun getPartyList(
+    suspend fun getEventList(
         @Query("expand") expand: String = EXPAND_REQUEST,
         @Query("fields") fields: String = FIELDS_REQUEST
     ): Response<EventApiResponse>
+
+    @GET()
+    suspend fun getEventDetails(
+
+    )//: Response<List<>>
 
 }

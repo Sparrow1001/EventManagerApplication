@@ -2,10 +2,11 @@ package com.example.eventmanagerapplication.model.database.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.io.Serializable
 
 @Entity(tableName = "events")
 data class EventDTO (
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     val id: Int?,
     val end_date: String,
     val end_time: String,
@@ -14,4 +15,4 @@ data class EventDTO (
     val imagesUrl: List<String>?,
     val title: String,
     val event_id: Int
-)
+): Serializable

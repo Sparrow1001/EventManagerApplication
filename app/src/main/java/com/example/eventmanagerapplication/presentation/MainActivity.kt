@@ -11,13 +11,19 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import com.example.eventmanagerapplication.R
 import com.example.eventmanagerapplication.databinding.ActivityMainBinding
+import com.example.eventmanagerapplication.model.Repository
+import com.example.eventmanagerapplication.model.database.EventDatabase
+import com.example.eventmanagerapplication.viewmodel.EventViewModelProviderFactory
+import com.example.eventmanagerapplication.viewmodel.HomeViewModel
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
+    lateinit var viewModel: HomeViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,7 +31,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setSupportActionBar(binding.appBarMain.toolbar)
+        //setSupportActionBar(binding.appBarMain.toolbar)
 
         val drawerLayout: DrawerLayout = binding.drawerLayout
         val navView: NavigationView = binding.navView
@@ -39,6 +45,10 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
+        val repository = Repository(EventDatabase(this))
+        val viewModelProviderFactory = EventViewModelProviderFactory(application, repository)
+        viewModel = ViewModelProvider(this, viewModelProviderFactory)[HomeViewModel::class.java]
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

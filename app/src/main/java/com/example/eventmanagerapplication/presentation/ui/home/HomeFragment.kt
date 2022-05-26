@@ -1,22 +1,29 @@
 package com.example.eventmanagerapplication.presentation.ui.home
 
+import android.content.ContentValues.TAG
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.eventmanagerapplication.databinding.FragmentHomeBinding
-import com.example.eventmanagerapplication.viewmodel.EventDetailViewModel
+import com.example.eventmanagerapplication.model.mappers.EventResponseMapper
+import com.example.eventmanagerapplication.presentation.MainActivity
+import com.example.eventmanagerapplication.presentation.adapters.HomeAdapter
+import com.example.eventmanagerapplication.utils.Resource
+import com.example.eventmanagerapplication.viewmodel.HomeViewModel
 
 class HomeFragment : Fragment() {
 
-    private var _binding: FragmentHomeBinding? = null
+    private lateinit var binding: FragmentHomeBinding
+    private lateinit var homeAdapter: HomeAdapter
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
-    private val binding get() = _binding!!
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -24,20 +31,45 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val homeViewModel =
-            ViewModelProvider(this).get(EventDetailViewModel::class.java)
+            (activity as MainActivity).viewModel
 
-        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        val mapper = EventResponseMapper()
+
+        binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textHome
-        homeViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
-        }
+        setupRecyclerView()
+
+        homeViewModel.events.observe(viewLifecycleOwner, Observer { response ->
+            when (response){
+                is Resource.Success -> {
+                    response.data.let { eventsResponse ->
+                        homeAdapter.differ.submitList(eventsResponse?.let { mapper.toEventDTO(it) })
+                    }
+                }
+                is Resource.Error -> {
+                    response.message?.let { message ->
+                        Log.e(TAG, "An error occured: $message")
+                        Toast.makeText(activity, "An error occured: $message", Toast.LENGTH_LONG).show()
+                    }
+                }
+
+                is Resource.Loading -> {
+                }
+            }
+        })
+
+
         return root
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+    private fun setupRecyclerView() {
+        homeAdapter = HomeAdapter()
+        binding.homeRecyclerView.apply {
+            adapter = homeAdapter
+            layoutManager = LinearLayoutManager(activity)
+        }
     }
+
+
 }
