@@ -12,7 +12,9 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.eventmanagerapplication.databinding.FragmentHomeBinding
+import com.example.eventmanagerapplication.model.database.entity.EventDTO
 import com.example.eventmanagerapplication.model.mappers.EventResponseMapper
+import com.example.eventmanagerapplication.model.network.api.EventApiResponse
 import com.example.eventmanagerapplication.presentation.MainActivity
 import com.example.eventmanagerapplication.presentation.adapters.HomeAdapter
 import com.example.eventmanagerapplication.utils.Resource
@@ -62,6 +64,7 @@ class HomeFragment : Fragment() {
 
         return root
     }
+
 
     private fun setupRecyclerView() {
         homeAdapter = HomeAdapter()

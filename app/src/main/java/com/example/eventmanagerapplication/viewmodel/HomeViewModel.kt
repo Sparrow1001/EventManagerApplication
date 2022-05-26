@@ -36,14 +36,14 @@ class HomeViewModel(
     private suspend fun safeEventListCall() {
         events.postValue(Resource.Loading())
         try {
-            if(hasInternetConnection()) {
+            //if(hasInternetConnection()) {
                 val response = eventRepository.getEventsList()
                 events.postValue(handleAstroPictureResponse(response))
-            } else {
+            //} else {
 //                val response = getSavedPictures()
 //                events.postValue(Resource.Error("No internet connection"))
 //                events.postValue(Resource.NoInternet(response))
-            }
+            //}
         } catch (t: Throwable) {
             when(t) {
                 is IOException -> events.postValue(Resource.Error("Network Failure"))

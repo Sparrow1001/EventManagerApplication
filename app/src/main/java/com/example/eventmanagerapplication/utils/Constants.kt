@@ -2,4 +2,5 @@ package com.example.eventmanagerapplication.utils
 
 const val FIELDS_REQUEST: String = "id,title,dates,images"
 const val EXPAND_REQUEST: String = "dates"
+//const val ACTUAL_SINCE: Long = System.currentTimeMillis()+ 1000000
 const val BASE_URL: String = "https://kudago.com/"

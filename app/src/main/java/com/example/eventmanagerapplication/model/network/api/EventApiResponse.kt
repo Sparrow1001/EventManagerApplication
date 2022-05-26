@@ -1,13 +1,12 @@
 package com.example.eventmanagerapplication.model.network.api
 
-class EventApiResponse(val item: Item) {
+data class EventApiResponse(
 
-    data class Item(
-        val count: Int,
-        val next: String,
-        val previous: Any,
-        val results: List<Result>
-    )
+    val count: Int,
+    val next: String,
+    val previous: Any,
+    val results: List<Result>)
+
 
     data class Result(
         val dates: List<Date>,
@@ -17,14 +16,13 @@ class EventApiResponse(val item: Item) {
     )
 
     data class Date(
-        val end_date: String,
-        val end_time: String,
+     //   val end_date: String,
+     //   val end_time: String,
         val start_date: String,
-        val start_time: String
+     //   val start_time: String
     )
 
     data class Image(
         val image: String
     )
 
-}
