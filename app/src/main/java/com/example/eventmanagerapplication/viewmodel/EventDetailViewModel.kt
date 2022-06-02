@@ -1,13 +1,47 @@
 package com.example.eventmanagerapplication.viewmodel
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.eventmanagerapplication.model.Repository
+import com.example.eventmanagerapplication.model.network.api.EventApiResponse
+import com.example.eventmanagerapplication.model.network.api.EventDetailsApiResponse
+import com.example.eventmanagerapplication.utils.Resource
+import kotlinx.coroutines.launch
+import retrofit2.Response
+import java.io.IOException
 
-class EventDetailViewModel : ViewModel() {
+class EventDetailViewModel(
+    val eventRepository: Repository
+) : ViewModel() {
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is home Fragment"
+    val eventDetails: MutableLiveData<Resource<EventDetailsApiResponse>> = MutableLiveData()
+
+    fun getEventDetails(id: Int) = viewModelScope.launch {
+        safeEventDetailsCall(id)
     }
-    val text: LiveData<String> = _text
+
+    private suspend fun safeEventDetailsCall(id: Int) {
+        eventDetails.postValue(Resource.Loading())
+        try {
+
+            val response = eventRepository.getEventDetails(id)
+            eventDetails.postValue(handleAstroPictureResponse(response))
+
+        } catch (t: Throwable) {
+            when (t) {
+                is IOException -> eventDetails.postValue(Resource.Error("Network Failure"))
+                else -> eventDetails.postValue(Resource.Error("Conversion Error: ${t.message}"))
+            }
+        }
+    }
+
+    private fun handleAstroPictureResponse(response: Response<EventDetailsApiResponse>): Resource<EventDetailsApiResponse> {
+        if (response.isSuccessful) {
+            response.body()?.let { resultResponse ->
+                return Resource.Success(resultResponse)
+            }
+        }
+        return Resource.Error(response.message())
+    }
 }

@@ -4,6 +4,7 @@ import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.graphics.drawable.toDrawable
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -13,10 +14,8 @@ import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.example.eventmanagerapplication.R
-import com.example.eventmanagerapplication.databinding.FragmentHomeBinding
 import com.example.eventmanagerapplication.databinding.ItemEventBinding
 import com.example.eventmanagerapplication.model.database.entity.EventDTO
-import com.example.eventmanagerapplication.model.network.api.EventApiResponse
 
 class HomeAdapter : RecyclerView.Adapter<HomeAdapter.HomeViewHolder>() {
 
@@ -53,7 +52,6 @@ class HomeAdapter : RecyclerView.Adapter<HomeAdapter.HomeViewHolder>() {
         with(holder.binding) {
             nameTv.text = event.title
             dateTv.text = event.start_date
-            priceTv.text = "Бесплатно"
 
             Glide.with(imageIv).load(event.imagesUrl?.get(0))
                 .listener(object : RequestListener<Drawable>{
@@ -77,7 +75,31 @@ class HomeAdapter : RecyclerView.Adapter<HomeAdapter.HomeViewHolder>() {
                     }
 
                 }).into(imageIv)
+
+            var counter = 1
+            likeBt.setOnClickListener {
+                counter += 1
+//                likeBt.setImageResource(R.drawable.ic_favorite_fill)
+                if (counter % 2 == 0){
+                    likeBt.setImageResource(R.drawable.ic_favorite_fill)
+                }else {
+                    likeBt.setImageResource(R.drawable.ic_favorite)
+                }
+
+            }
+
+            holder.itemView.setOnClickListener {
+                onItemClickListener?.let { it(event) }
+            }
+
+
         }
+    }
+
+    private var onItemClickListener: ((EventDTO) -> Unit)? = null
+
+    fun setOnItemClickListener(listener:(EventDTO) -> Unit){
+        onItemClickListener = listener
     }
 
     override fun getItemCount(): Int {

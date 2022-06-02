@@ -36,24 +36,20 @@ class HomeViewModel(
     private suspend fun safeEventListCall() {
         events.postValue(Resource.Loading())
         try {
-            //if(hasInternetConnection()) {
-                val response = eventRepository.getEventsList()
-                events.postValue(handleAstroPictureResponse(response))
-            //} else {
-//                val response = getSavedPictures()
-//                events.postValue(Resource.Error("No internet connection"))
-//                events.postValue(Resource.NoInternet(response))
-            //}
+
+            val response = eventRepository.getEventsList()
+            events.postValue(handleAstroPictureResponse(response))
+
         } catch (t: Throwable) {
-            when(t) {
+            when (t) {
                 is IOException -> events.postValue(Resource.Error("Network Failure"))
                 else -> events.postValue(Resource.Error("Conversion Error: ${t.message}"))
             }
         }
     }
 
-    private fun handleAstroPictureResponse(response: Response<EventApiResponse>):Resource<EventApiResponse>{
-        if (response.isSuccessful){
+    private fun handleAstroPictureResponse(response: Response<EventApiResponse>): Resource<EventApiResponse> {
+        if (response.isSuccessful) {
             response.body()?.let { resultResponse ->
                 return Resource.Success(resultResponse)
             }
@@ -65,32 +61,7 @@ class HomeViewModel(
         eventRepository.upsert(picture)
     }
 
-    fun getSavedPictures()  = eventRepository.getSavedEvents()
+    fun getSavedPictures() = eventRepository.getSavedEvents()
 
-    private fun hasInternetConnection(): Boolean {
-        val connectivityManager = getApplication<EventApplication>().getSystemService(
-            Context.CONNECTIVITY_SERVICE
-        ) as ConnectivityManager
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            val activeNetwork = connectivityManager.activeNetwork ?: return false
-            val capabilities = connectivityManager.getNetworkCapabilities(activeNetwork) ?: return false
-            return when {
-                capabilities.hasTransport(TRANSPORT_WIFI) -> true
-                capabilities.hasTransport(TRANSPORT_CELLULAR) -> true
-                capabilities.hasTransport(TRANSPORT_ETHERNET) -> true
-                else -> false
-            }
-        } else {
-            connectivityManager.activeNetworkInfo?.run {
-                return when(type){
-                    TYPE_WIFI -> true
-                    TYPE_MOBILE -> true
-                    TYPE_ETHERNET -> true
-                    else -> false
-                }
-            }
-        }
-        return false
-    }
 
 }

@@ -1,11 +1,14 @@
 package com.example.eventmanagerapplication.model.network.api
 
+import java.io.Serializable
+
 data class EventApiResponse(
 
     val count: Int,
     val next: String,
     val previous: Any,
-    val results: List<Result>)
+    val results: List<Result>
+    ): Serializable
 
 
     data class Result(

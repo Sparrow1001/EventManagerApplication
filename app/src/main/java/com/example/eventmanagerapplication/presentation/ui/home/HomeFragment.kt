@@ -9,16 +9,14 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.eventmanagerapplication.R
 import com.example.eventmanagerapplication.databinding.FragmentHomeBinding
-import com.example.eventmanagerapplication.model.database.entity.EventDTO
 import com.example.eventmanagerapplication.model.mappers.EventResponseMapper
-import com.example.eventmanagerapplication.model.network.api.EventApiResponse
 import com.example.eventmanagerapplication.presentation.MainActivity
 import com.example.eventmanagerapplication.presentation.adapters.HomeAdapter
 import com.example.eventmanagerapplication.utils.Resource
-import com.example.eventmanagerapplication.viewmodel.HomeViewModel
 
 class HomeFragment : Fragment() {
 
@@ -33,12 +31,24 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val homeViewModel =
-            (activity as MainActivity).viewModel
-
-        val mapper = EventResponseMapper()
+            (activity as MainActivity).homeViewModel
 
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
+
+        val mapper = EventResponseMapper()
+        val navHostFragment = activity?.supportFragmentManager?.findFragmentById(R.id.listNavHostFragment) as NavHostFragment
+        val navController = navHostFragment.navController
+        homeAdapter = HomeAdapter()
+        homeAdapter.setOnItemClickListener {
+            val bundle = Bundle().apply {
+                putSerializable("event", it)
+            }
+            navController.navigate(
+                R.id.action_home_fragment_to_eventDetailsFragment,
+                bundle
+            )
+        }
 
         setupRecyclerView()
 
@@ -61,13 +71,11 @@ class HomeFragment : Fragment() {
             }
         })
 
-
         return root
     }
 
 
     private fun setupRecyclerView() {
-        homeAdapter = HomeAdapter()
         binding.homeRecyclerView.apply {
             adapter = homeAdapter
             layoutManager = LinearLayoutManager(activity)
