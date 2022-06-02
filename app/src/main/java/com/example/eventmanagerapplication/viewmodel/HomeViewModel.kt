@@ -57,11 +57,9 @@ class HomeViewModel(
         return Resource.Error(response.message())
     }
 
-    fun savePicture(picture: EventDTO) = viewModelScope.launch {
-        eventRepository.upsert(picture)
+    fun saveEvent(event: EventDTO) = viewModelScope.launch {
+        eventRepository.upsert(event)
     }
-
-    fun getSavedPictures() = eventRepository.getSavedEvents()
 
 
 }

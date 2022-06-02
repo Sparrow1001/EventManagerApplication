@@ -35,20 +35,6 @@
             android:adjustViewBounds="true"
             android:src="@drawable/ic_launcher_foreground"/>
 
-        <ImageButton
-            android:id="@+id/likeBt"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@drawable/ic_favorite"
-            android:background="@null"
-            android:layout_marginTop="16dp"
-            app:layout_constraintEnd_toEndOf="@id/endContentGl"
-            app:layout_constraintTop_toTopOf="@id/imageIv"
-            app:layout_constraintBottom_toBottomOf="@id/imageIv"
-            app:layout_constraintVertical_bias="0"
-            app:layout_constraintStart_toStartOf="@id/startContentGl"
-            app:layout_constraintHorizontal_bias="1"/>
-
         <TextView
             android:id="@+id/nameTv"
             android:layout_width="wrap_content"
@@ -71,11 +57,6 @@
             app:layout_constraintEnd_toEndOf="@id/endContentGl"
             app:layout_constraintHorizontal_bias="0"
             android:text="Date"/>
-
-
-
-
-
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

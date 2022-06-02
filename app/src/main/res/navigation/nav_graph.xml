@@ -19,7 +19,11 @@
         android:id="@+id/favorites_fragment"
         android:name="com.example.eventmanagerapplication.presentation.ui.favorites.FavoritesFragment"
         android:label="fragment_favorites"
-        tools:layout="@layout/fragment_favorites" />
+        tools:layout="@layout/fragment_favorites" >
+        <action
+            android:id="@+id/action_favorites_fragment_to_eventDetailsFragment"
+            app:destination="@id/eventDetailsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/events_fragment"
         android:name="com.example.eventmanagerapplication.presentation.ui.myevents.MyEventsFragment"

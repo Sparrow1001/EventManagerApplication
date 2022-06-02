@@ -9,10 +9,7 @@ import com.example.eventmanagerapplication.R
 import com.example.eventmanagerapplication.databinding.ActivityMainBinding
 import com.example.eventmanagerapplication.model.Repository
 import com.example.eventmanagerapplication.model.database.EventDatabase
-import com.example.eventmanagerapplication.viewmodel.EventDetailViewModel
-import com.example.eventmanagerapplication.viewmodel.EventDetailsViewModelProviderFactory
-import com.example.eventmanagerapplication.viewmodel.EventViewModelProviderFactory
-import com.example.eventmanagerapplication.viewmodel.HomeViewModel
+import com.example.eventmanagerapplication.viewmodel.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -20,6 +17,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     lateinit var homeViewModel: HomeViewModel
     lateinit var detailViewModel: EventDetailViewModel
+    lateinit var favouritesViewModel: FavoritesViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,8 +33,11 @@ class MainActivity : AppCompatActivity() {
         val repository = Repository(EventDatabase(this))
         val viewModelProviderFactory = EventViewModelProviderFactory(application, repository)
         val detailsViewModelProviderFactory = EventDetailsViewModelProviderFactory(repository)
+        val favoritesViewModelProviderFactory = FavouritesViewModelProviderFactory(repository)
+
         homeViewModel = ViewModelProvider(this, viewModelProviderFactory)[HomeViewModel::class.java]
         detailViewModel = ViewModelProvider(this, detailsViewModelProviderFactory)[EventDetailViewModel::class.java]
+        favouritesViewModel = ViewModelProvider(this, favoritesViewModelProviderFactory)[FavoritesViewModel::class.java]
 
 
 

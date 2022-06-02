@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.eventmanagerapplication.model.Repository
+import com.example.eventmanagerapplication.model.database.entity.EventDTO
 import com.example.eventmanagerapplication.model.network.api.EventApiResponse
 import com.example.eventmanagerapplication.model.network.api.EventDetailsApiResponse
 import com.example.eventmanagerapplication.utils.Resource
@@ -43,5 +44,9 @@ class EventDetailViewModel(
             }
         }
         return Resource.Error(response.message())
+    }
+
+    fun saveEvent(event: EventDTO) = viewModelScope.launch {
+        eventRepository.upsert(event)
     }
 }

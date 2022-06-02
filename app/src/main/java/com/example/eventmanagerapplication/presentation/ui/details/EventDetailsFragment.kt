@@ -38,6 +38,10 @@ class EventDetailsFragment : Fragment() {
 
         viewModel.getEventDetails(args.event.event_id)
 
+        binding.likeBt.setOnClickListener {
+            viewModel.saveEvent(args.event)
+        }
+
 
         return binding.root
     }

@@ -4,6 +4,7 @@ import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.core.graphics.drawable.toDrawable
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
@@ -76,24 +77,28 @@ class HomeAdapter : RecyclerView.Adapter<HomeAdapter.HomeViewHolder>() {
 
                 }).into(imageIv)
 
-            var counter = 1
-            likeBt.setOnClickListener {
-                counter += 1
-//                likeBt.setImageResource(R.drawable.ic_favorite_fill)
-                if (counter % 2 == 0){
-                    likeBt.setImageResource(R.drawable.ic_favorite_fill)
-                }else {
-                    likeBt.setImageResource(R.drawable.ic_favorite)
-                }
+//            var counter = 1
+//            likeBt.setOnClickListener {
+//                counter += 1
+////                likeBt.setImageResource(R.drawable.ic_favorite_fill)
+//                if (counter % 2 == 0){
+//                    likeBt.setImageResource(R.drawable.ic_favorite_fill)
+//                }else {
+//                    likeBt.setImageResource(R.drawable.ic_favorite)
+//                }
+//
+//            }
 
-            }
 
             holder.itemView.setOnClickListener {
                 onItemClickListener?.let { it(event) }
             }
 
 
+
+
         }
+
     }
 
     private var onItemClickListener: ((EventDTO) -> Unit)? = null
@@ -101,6 +106,8 @@ class HomeAdapter : RecyclerView.Adapter<HomeAdapter.HomeViewHolder>() {
     fun setOnItemClickListener(listener:(EventDTO) -> Unit){
         onItemClickListener = listener
     }
+
+
 
     override fun getItemCount(): Int {
         return differ.currentList.size

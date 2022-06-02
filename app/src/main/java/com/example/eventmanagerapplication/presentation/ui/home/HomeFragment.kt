@@ -50,6 +50,8 @@ class HomeFragment : Fragment() {
             )
         }
 
+
+
         setupRecyclerView()
 
         homeViewModel.events.observe(viewLifecycleOwner, Observer { response ->
