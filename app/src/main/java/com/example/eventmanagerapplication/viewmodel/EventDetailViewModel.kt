@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.eventmanagerapplication.model.Repository
 import com.example.eventmanagerapplication.model.database.entity.EventDTO
+import com.example.eventmanagerapplication.model.database.entity.MyEventDTO
 import com.example.eventmanagerapplication.model.network.api.EventApiResponse
 import com.example.eventmanagerapplication.model.network.api.EventDetailsApiResponse
 import com.example.eventmanagerapplication.utils.Resource
@@ -48,5 +49,9 @@ class EventDetailViewModel(
 
     fun saveEvent(event: EventDTO) = viewModelScope.launch {
         eventRepository.upsert(event)
+    }
+
+    fun buyTicket(event: MyEventDTO) = viewModelScope.launch {
+        eventRepository.myUpsert(event)
     }
 }

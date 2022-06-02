@@ -13,6 +13,8 @@
         <entry key="..\:/AndroidProjects/EventManagerApplication/app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="..\:/AndroidProjects/EventManagerApplication/app/src/main/res/layout/app_bar_main.xml" value="0.3492822966507177" />
         <entry key="..\:/AndroidProjects/EventManagerApplication/app/src/main/res/layout/content_main.xml" value="0.38697916666666665" />
+        <entry key="..\:/AndroidProjects/EventManagerApplication/app/src/main/res/layout/custom_dialog.xml" value="0.38697916666666665" />
+        <entry key="..\:/AndroidProjects/EventManagerApplication/app/src/main/res/layout/custom_dialog_fragment.xml" value="0.33" />
         <entry key="..\:/AndroidProjects/EventManagerApplication/app/src/main/res/layout/fragment_event_details.xml" value="0.33" />
         <entry key="..\:/AndroidProjects/EventManagerApplication/app/src/main/res/layout/fragment_favorites.xml" value="0.38697916666666665" />
         <entry key="..\:/AndroidProjects/EventManagerApplication/app/src/main/res/layout/fragment_gallery.xml" value="0.38697916666666665" />

@@ -6,15 +6,18 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.example.eventmanagerapplication.model.database.dao.EventDAO
+import com.example.eventmanagerapplication.model.database.dao.MyEventDAO
 import com.example.eventmanagerapplication.model.database.entity.EventDTO
+import com.example.eventmanagerapplication.model.database.entity.MyEventDTO
 
 @Database(
-    entities = [EventDTO::class],
+    entities = [EventDTO::class, MyEventDTO::class],
     version = 1
 )
 @TypeConverters(Converters::class)
 abstract class EventDatabase : RoomDatabase() {
     abstract fun getEventDao(): EventDAO
+    abstract fun getMyEventDao(): MyEventDAO
 
     companion object{
         @Volatile
