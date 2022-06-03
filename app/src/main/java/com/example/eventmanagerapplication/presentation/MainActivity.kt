@@ -18,6 +18,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var homeViewModel: HomeViewModel
     lateinit var detailViewModel: EventDetailViewModel
     lateinit var favouritesViewModel: FavoritesViewModel
+    lateinit var myEventsViewModel: MyEventsViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,10 +35,12 @@ class MainActivity : AppCompatActivity() {
         val viewModelProviderFactory = EventViewModelProviderFactory(application, repository)
         val detailsViewModelProviderFactory = EventDetailsViewModelProviderFactory(repository)
         val favoritesViewModelProviderFactory = FavouritesViewModelProviderFactory(repository)
+        val myEventsViewModelProviderFactory = MyEventsViewModelProviderFactory(repository)
 
         homeViewModel = ViewModelProvider(this, viewModelProviderFactory)[HomeViewModel::class.java]
         detailViewModel = ViewModelProvider(this, detailsViewModelProviderFactory)[EventDetailViewModel::class.java]
         favouritesViewModel = ViewModelProvider(this, favoritesViewModelProviderFactory)[FavoritesViewModel::class.java]
+        myEventsViewModel = ViewModelProvider(this, myEventsViewModelProviderFactory)[MyEventsViewModel::class.java]
 
 
 

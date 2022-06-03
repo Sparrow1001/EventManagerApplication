@@ -12,7 +12,7 @@ import com.example.eventmanagerapplication.model.database.entity.MyEventDTO
 
 @Database(
     entities = [EventDTO::class, MyEventDTO::class],
-    version = 1
+    version = 2
 )
 @TypeConverters(Converters::class)
 abstract class EventDatabase : RoomDatabase() {
