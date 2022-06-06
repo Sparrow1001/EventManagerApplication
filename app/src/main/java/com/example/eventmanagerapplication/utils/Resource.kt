@@ -9,7 +9,6 @@ sealed class Resource<T>(
 ) {
 
     class Success<T>(data: T) : Resource<T>(data)
-    class NoInternet<T>(liveData: LiveData<T>? = null) : Resource<T>(null, null, liveData)
     class Error<T>(message: String, data: T? = null) : Resource<T>(data, message)
     class Loading<T> : Resource<T>()
 

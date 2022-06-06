@@ -14,7 +14,7 @@ data class EventDTO(
     val id: Int?,
     //  val end_date: String,
     //  val end_time: String,
-    val start_date: String,
+    val start_date: String?,
     //   val start_time: String,
     val imagesUrl: List<String>?,
     val title: String,

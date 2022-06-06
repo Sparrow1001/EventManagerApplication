@@ -13,6 +13,7 @@ import com.example.eventmanagerapplication.EventApplication
 import com.example.eventmanagerapplication.model.Repository
 import com.example.eventmanagerapplication.model.database.entity.EventDTO
 import com.example.eventmanagerapplication.model.network.api.EventApiResponse
+import com.example.eventmanagerapplication.utils.CATEGORIES_REQUEST
 import com.example.eventmanagerapplication.utils.Resource
 import kotlinx.coroutines.launch
 import retrofit2.Response
@@ -26,18 +27,18 @@ class HomeViewModel(
     val events: MutableLiveData<Resource<EventApiResponse>> = MutableLiveData()
 
     init {
-        getEventList()
+        getEventList(CATEGORIES_REQUEST)
     }
 
-    fun getEventList() = viewModelScope.launch {
-        safeEventListCall()
+    fun getEventList(categories: String) = viewModelScope.launch {
+        safeEventListCall(categories)
     }
 
-    private suspend fun safeEventListCall() {
+    private suspend fun safeEventListCall(categories: String) {
         events.postValue(Resource.Loading())
         try {
 
-            val response = eventRepository.getEventsList()
+            val response = eventRepository.getEventsList(categories)
             events.postValue(handleAstroPictureResponse(response))
 
         } catch (t: Throwable) {
@@ -60,6 +61,4 @@ class HomeViewModel(
     fun saveEvent(event: EventDTO) = viewModelScope.launch {
         eventRepository.upsert(event)
     }
-
-
 }

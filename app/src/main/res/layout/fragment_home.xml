@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -16,17 +15,73 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <androidx.constraintlayout.helper.widget.Flow
+        android:id="@+id/flow"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:flow_wrapMode="chain"
+        app:constraint_referenced_ids="concertChip,exhibitionChip,cinemaChip,festChip,excursionsChip,holidayChip"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/searchView" />
+
+    <com.google.android.material.chip.Chip
+        android:id="@+id/concertChip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Концерты" />
+
+    <com.google.android.material.chip.Chip
+        android:id="@+id/exhibitionChip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Выставки" />
+
+    <com.google.android.material.chip.Chip
+        android:id="@+id/cinemaChip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Кинопремьеры" />
+
+    <com.google.android.material.chip.Chip
+        android:id="@+id/festChip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Фестивали" />
+
+    <com.google.android.material.chip.Chip
+        android:id="@+id/excursionsChip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Экскурсии" />
+
+    <com.google.android.material.chip.Chip
+        android:id="@+id/holidayChip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Праздники" />
+
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/homeRecyclerView"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="610dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintVertical_bias="0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchView"
+        app:layout_constraintTop_toBottomOf="@+id/flow"
+        app:layout_constraintVertical_bias="0"
         tools:listitem="@layout/item_event" />
 
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="64dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

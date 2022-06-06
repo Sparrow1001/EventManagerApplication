@@ -1,6 +1,5 @@
 package com.example.eventmanagerapplication.presentation.ui.details
 
-import android.app.Dialog
 import android.content.ContentValues
 import android.graphics.drawable.Drawable
 import android.os.Bundle
@@ -9,9 +8,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.Window
-import android.widget.Button
-import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
@@ -20,7 +16,6 @@ import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
-import com.example.eventmanagerapplication.R
 import com.example.eventmanagerapplication.databinding.FragmentEventDetailsBinding
 import com.example.eventmanagerapplication.model.database.entity.MyEventDTO
 import com.example.eventmanagerapplication.model.network.api.EventDetailsApiResponse
@@ -58,6 +53,7 @@ class EventDetailsFragment : Fragment() {
                 args.event.event_id
             ))
         }
+
 
         return binding.root
     }

@@ -12,7 +12,7 @@ import java.io.Serializable
 data class MyEventDTO(
     @PrimaryKey(autoGenerate = true)
     val id: Int?,
-    val start_date: String,
+    val start_date: String?,
     val imagesUrl: List<String>?,
     val title: String,
     val event_id: Int

@@ -6,7 +6,7 @@ import com.example.eventmanagerapplication.model.database.entity.MyEventDTO
 import com.example.eventmanagerapplication.model.network.api.RetrofitInstance
 
 class Repository(val db: EventDatabase) {
-    suspend fun getEventsList() = RetrofitInstance.api.getEventList()
+    suspend fun getEventsList(categories: String) = RetrofitInstance.api.getEventList(categories = categories)
 
     suspend fun getEventDetails(id: Int) = RetrofitInstance.api.getEventDetails(id)
 
@@ -14,7 +14,11 @@ class Repository(val db: EventDatabase) {
 
     fun getSavedEvents() = db.getEventDao().getSavedEvents()
 
+    suspend fun deleteFavourite(event: EventDTO) = db.getEventDao().deleteEvent(event)
+
     suspend fun myUpsert(event: MyEventDTO) = db.getMyEventDao().saveEvent(event)
 
     fun getMyEvents() = db.getMyEventDao().getSavedEvents()
+
+    suspend fun deleteMyEvent(event: MyEventDTO) = db.getMyEventDao().deleteEvent(event)
 }

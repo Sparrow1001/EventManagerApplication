@@ -19,7 +19,7 @@ interface EventAPI {
         @Query("fields") fields: String = FIELDS_REQUEST,
         @Query("order_by") order_by: String = ORDER_BY_REQUEST,
         @Query("page_size") page_size: Int = PAGE_SIZE_REQUEST,
-        @Query("categories") categories: String = CATEGORIES_REQUEST,
+        @Query("categories") categories: String,
         @Query("actual_since") actual_since: String = DateTimeFormatter.ISO_INSTANT.format(Instant.now())
     ): Response<EventApiResponse>
 
