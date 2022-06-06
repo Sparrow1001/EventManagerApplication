@@ -4,6 +4,8 @@ import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Filter
+import android.widget.Filterable
 import android.widget.ImageView
 import androidx.core.graphics.drawable.toDrawable
 import androidx.recyclerview.widget.AsyncListDiffer
@@ -20,9 +22,11 @@ import com.example.eventmanagerapplication.model.database.entity.EventDTO
 
 class HomeAdapter : RecyclerView.Adapter<HomeAdapter.HomeViewHolder>() {
 
-    inner class HomeViewHolder(val binding: ItemEventBinding): RecyclerView.ViewHolder(binding.root)
 
-    private val differCallback = object : DiffUtil.ItemCallback<EventDTO>(){
+    inner class HomeViewHolder(val binding: ItemEventBinding) :
+        RecyclerView.ViewHolder(binding.root)
+
+    private val differCallback = object : DiffUtil.ItemCallback<EventDTO>() {
         override fun areItemsTheSame(
             oldItem: EventDTO,
             newItem: EventDTO
@@ -55,7 +59,7 @@ class HomeAdapter : RecyclerView.Adapter<HomeAdapter.HomeViewHolder>() {
             dateTv.text = event.start_date
 
             Glide.with(imageIv).load(event.imagesUrl?.get(0))
-                .listener(object : RequestListener<Drawable>{
+                .listener(object : RequestListener<Drawable> {
                     override fun onLoadFailed(
                         e: GlideException?,
                         model: Any?,
@@ -77,24 +81,11 @@ class HomeAdapter : RecyclerView.Adapter<HomeAdapter.HomeViewHolder>() {
 
                 }).into(imageIv)
 
-//            var counter = 1
-//            likeBt.setOnClickListener {
-//                counter += 1
-////                likeBt.setImageResource(R.drawable.ic_favorite_fill)
-//                if (counter % 2 == 0){
-//                    likeBt.setImageResource(R.drawable.ic_favorite_fill)
-//                }else {
-//                    likeBt.setImageResource(R.drawable.ic_favorite)
-//                }
-//
-//            }
 
 
             holder.itemView.setOnClickListener {
                 onItemClickListener?.let { it(event) }
             }
-
-
 
 
         }
@@ -103,10 +94,9 @@ class HomeAdapter : RecyclerView.Adapter<HomeAdapter.HomeViewHolder>() {
 
     private var onItemClickListener: ((EventDTO) -> Unit)? = null
 
-    fun setOnItemClickListener(listener:(EventDTO) -> Unit){
+    fun setOnItemClickListener(listener: (EventDTO) -> Unit) {
         onItemClickListener = listener
     }
-
 
 
     override fun getItemCount(): Int {

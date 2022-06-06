@@ -30,7 +30,6 @@ class MainActivity : AppCompatActivity() {
         val navController = navHostFragment.navController
         binding.bottomNavigation.setupWithNavController(navController)
 
-
         val repository = Repository(EventDatabase(this))
         val viewModelProviderFactory = EventViewModelProviderFactory(application, repository)
         val detailsViewModelProviderFactory = EventDetailsViewModelProviderFactory(repository)

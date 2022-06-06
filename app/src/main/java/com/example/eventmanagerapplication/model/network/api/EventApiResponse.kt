@@ -19,10 +19,7 @@ data class EventApiResponse(
     )
 
     data class Date(
-     //   val end_date: String,
-     //   val end_time: String,
         val start_date: String,
-     //   val start_time: String
     )
 
     data class Image(
