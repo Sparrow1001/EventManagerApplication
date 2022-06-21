@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.eventmanagerapplication.databinding.ItemMyEventBinding
+import com.example.eventmanagerapplication.model.database.entity.EventDTO
 import com.example.eventmanagerapplication.model.database.entity.MyEventDTO
 
 class MyEventsAdapter: RecyclerView.Adapter<MyEventsAdapter.MyEventsViewHolder>() {
@@ -46,6 +47,16 @@ class MyEventsAdapter: RecyclerView.Adapter<MyEventsAdapter.MyEventsViewHolder>(
             dateTv.text = event.start_date
 
         }
+
+        holder.itemView.setOnClickListener {
+            onItemClickListener?.let { it(event) }
+        }
+    }
+
+    private var onItemClickListener: ((MyEventDTO) -> Unit)? = null
+
+    fun setOnItemClickListener(listener: (MyEventDTO) -> Unit) {
+        onItemClickListener = listener
     }
 
     override fun getItemCount(): Int {

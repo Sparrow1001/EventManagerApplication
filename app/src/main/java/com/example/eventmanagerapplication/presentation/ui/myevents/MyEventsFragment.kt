@@ -8,9 +8,11 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.eventmanagerapplication.R
 import com.example.eventmanagerapplication.databinding.FragmentMyEventsBinding
 import com.example.eventmanagerapplication.presentation.MainActivity
 import com.example.eventmanagerapplication.presentation.adapters.MyEventsAdapter
@@ -44,7 +46,7 @@ class MyEventsFragment : Fragment() {
 
         val itemTouchHelperCallback =
             object :
-                ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
+                ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
                 override fun onMove(
                     recyclerView: RecyclerView,
                     viewHolder: RecyclerView.ViewHolder,
@@ -62,6 +64,16 @@ class MyEventsFragment : Fragment() {
 
         val itemTouchHelper = ItemTouchHelper(itemTouchHelperCallback)
         itemTouchHelper.attachToRecyclerView(binding.myEventsRv)
+
+        myEventsAdapter.setOnItemClickListener {
+            val bundle = Bundle().apply {
+                putSerializable("event", it)
+            }
+            findNavController().navigate(
+                R.id.action_favorites_fragment_to_eventDetailsFragment,
+                bundle
+            )
+        }
 
 
         return binding.root

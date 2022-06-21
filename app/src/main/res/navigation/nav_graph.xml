@@ -28,7 +28,11 @@
         android:id="@+id/events_fragment"
         android:name="com.example.eventmanagerapplication.presentation.ui.myevents.MyEventsFragment"
         android:label="fragment_my_events"
-        tools:layout="@layout/fragment_my_events" />
+        tools:layout="@layout/fragment_my_events" >
+        <action
+            android:id="@+id/action_events_fragment_to_eventDetailsFragment"
+            app:destination="@id/eventDetailsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/eventDetailsFragment"
         android:name="com.example.eventmanagerapplication.presentation.ui.details.EventDetailsFragment"
